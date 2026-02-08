@@ -73,11 +73,13 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
     const App = () => {
         const [completed, setCompleted] = useState(() => JSON.parse(localStorage.getItem('cy_done') || '{}'));
         const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('cy_notes') || '{}'));
+        const [weights, setWeights] = useState(() => JSON.parse(localStorage.getItem('cy_weights') || '{}'));
         const [week, setWeek] = useState(1);
         const [view, setView] = useState('tracker');
 
         useEffect(() => { localStorage.setItem('cy_done', JSON.stringify(completed)); }, [completed]);
         useEffect(() => { localStorage.setItem('cy_notes', JSON.stringify(notes)); }, [notes]);
+        useEffect(() => { localStorage.setItem('cy_weights', JSON.stringify(weights)); }, [weights]);
 
         const currentItems = useMemo(() => DATA.filter(d => d.wk === week), [week]);
         const totalDoneCount = Object.values(completed).filter(Boolean).length;
@@ -89,6 +91,28 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                 return notes[id] && notes[id].trim() !== "";
             });
         }, [notes]);
+
+        const weightData = useMemo(() => {
+            const entries = DATA.map(item => {
+                const id = `${item.date}-${item.wk}`;
+                const weight = weights[id];
+                return {
+                    date: item.date,
+                    day: item.day,
+                    wk: item.wk,
+                    weight: weight ? parseFloat(weight) : null
+                };
+            }).filter(entry => entry.weight !== null);
+
+            if (entries.length === 0) return { entries: [], change: 0, percentChange: 0, startWeight: 0, endWeight: 0 };
+
+            const startWeight = entries[0].weight;
+            const endWeight = entries[entries.length - 1].weight;
+            const change = endWeight - startWeight;
+            const percentChange = ((change / startWeight) * 100).toFixed(1);
+
+            return { entries, change, percentChange, startWeight, endWeight };
+        }, [weights]);
 
         return (
             <div className="max-w-md mx-auto min-h-screen flex flex-col pb-24">
@@ -145,6 +169,18 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                             <Badge label="AI" val={item.ai} color="rose" />
                                         </div>
 
+                                        <div className="mb-5">
+                                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Body Weight (lbs)</label>
+                                            <input 
+                                                type="number"
+                                                step="0.1"
+                                                value={weights[id] || ''}
+                                                onChange={(e) => setWeights(prev => ({...prev, [id]: e.target.value}))}
+                                                placeholder="Enter weight..."
+                                                className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all"
+                                            />
+                                        </div>
+
                                         <textarea 
                                             value={notes[id] || ''}
                                             onChange={(e) => setNotes(prev => ({...prev, [id]: e.target.value}))}
@@ -175,6 +211,125 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                 <p className="text-3xl font-black text-slate-800">Week {week}</p>
                             </div>
                         </div>
+
+                        {weightData.entries.length > 0 && (
+                            <div className="mb-8">
+                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2 mb-4">Weight Progress</h3>
+                                
+                                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm mb-4">
+                                    <div className="grid grid-cols-3 gap-4 mb-6">
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Start</p>
+                                            <p className="text-xl font-black text-slate-800">{weightData.startWeight} lbs</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Current</p>
+                                            <p className="text-xl font-black text-slate-800">{weightData.endWeight} lbs</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Change</p>
+                                            <p className={`text-xl font-black ${weightData.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {weightData.change >= 0 ? '+' : ''}{weightData.change.toFixed(1)} lbs
+                                            </p>
+                                            <p className={`text-[10px] font-bold ${weightData.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {weightData.change >= 0 ? '+' : ''}{weightData.percentChange}%
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="relative h-48">
+                                        <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
+                                            <defs>
+                                                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" style={{stopColor: '#3b82f6', stopOpacity: 1}} />
+                                                    <stop offset="100%" style={{stopColor: '#8b5cf6', stopOpacity: 1}} />
+                                                </linearGradient>
+                                            </defs>
+                                            {(() => {
+                                                const weights = weightData.entries.map(e => e.weight);
+                                                const minWeight = Math.min(...weights);
+                                                const maxWeight = Math.max(...weights);
+                                                const range = maxWeight - minWeight || 1;
+                                                const padding = range * 0.1;
+                                                
+                                                const points = weightData.entries.map((entry, i) => {
+                                                    const x = (i / (weightData.entries.length - 1)) * 400;
+                                                    const y = 200 - (((entry.weight - minWeight + padding) / (range + padding * 2)) * 180 + 10);
+                                                    return `${x},${y}`;
+                                                }).join(' ');
+
+                                                return (
+                                                    <>
+                                                        <polyline
+                                                            points={points}
+                                                            fill="none"
+                                                            stroke="url(#lineGradient)"
+                                                            strokeWidth="3"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                        />
+                                                        {weightData.entries.map((entry, i) => {
+                                                            const x = (i / (weightData.entries.length - 1)) * 400;
+                                                            const y = 200 - (((entry.weight - minWeight + padding) / (range + padding * 2)) * 180 + 10);
+                                                            return (
+                                                                <circle
+                                                                    key={i}
+                                                                    cx={x}
+                                                                    cy={y}
+                                                                    r="4"
+                                                                    fill="#3b82f6"
+                                                                    stroke="white"
+                                                                    strokeWidth="2"
+                                                                />
+                                                            );
+                                                        })}
+                                                    </>
+                                                );
+                                            })()}
+                                        </svg>
+                                    </div>
+                                    <div className="flex justify-between items-center mt-4 pt-4 border-t border-dashed border-gray-200">
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                            Week 1
+                                        </span>
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                            Week {weightData.entries[weightData.entries.length - 1].wk}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {weightData.entries.map((entry, index) => {
+                                        const prevWeight = index > 0 ? weightData.entries[index - 1].weight : entry.weight;
+                                        const change = entry.weight - prevWeight;
+                                        return (
+                                            <div key={entry.date} className="bg-white p-4 rounded-2xl border border-gray-100 flex justify-between items-center">
+                                                <div>
+                                                    <p className="text-sm font-black text-slate-800">{entry.day}, {entry.date}</p>
+                                                    <p className="text-[10px] font-bold text-slate-400">Week {entry.wk}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-lg font-black text-slate-800">{entry.weight} lbs</p>
+                                                    {index > 0 && (
+                                                        <p className={`text-[10px] font-bold ${change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                            {change >= 0 ? '+' : ''}{change.toFixed(1)} lbs
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {weightData.entries.length === 0 && (
+                            <div className="bg-gray-50 p-8 rounded-3xl border border-dashed border-gray-200 text-center mb-8">
+                                <p className="text-gray-400 font-bold">No weight data recorded yet.</p>
+                                <p className="text-sm text-gray-400 mt-2">Start logging your weight on injection days to see progress.</p>
+                            </div>
+                        )}
+
                         <div className="space-y-6">
                             <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Log Timeline</h3>
                             {journalEntries.map(entry => (

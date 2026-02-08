@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000; min-height: 16.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt; &lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt; &lt;title&gt;Cycle Protocol Tracker&lt;/title&gt; &lt;script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"&gt;&lt;/script&gt; &lt;script src="https://www.google.com/search?q=https://unpkg.com/react%4018/umd/react.production.min.js"&gt;&lt;/script&gt; &lt;script src="https://www.google.com/search?q=https://unpkg.com/react-dom%4018/umd/react-dom.production.min.js"&gt;&lt;/script&gt; &lt;script src="https://www.google.com/search?q=https://unpkg.com/%40babel/standalone/babel.min.js"&gt;&lt;/script&gt; &lt;style&gt; @import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40400%3B600%3B700%3B800%26display%3Dswap'); body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; } .no-scrollbar::-webkit-scrollbar { display: none; } &lt;/style&gt; &lt;/head&gt; &lt;body class="bg-gray-50 text-slate-900"&gt; &lt;div id="root"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1">&lt;script type="text/babel"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>const { useState, useEffect, useMemo } = React;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>const DATA = [</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "3-Mar", wk: 1, day: "Mon", test: "250mg (1mL)", primo: "100mg (0mL)", anavar: "0mg", ai: "-", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "5-Mar", wk: 1, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "7-Mar", wk: 1, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "10-Mar", wk: 2, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "12-Mar", wk: 2, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "14-Mar", wk: 2, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "17-Mar", wk: 3, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "19-Mar", wk: 3, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "21-Mar", wk: 3, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "24-Mar", wk: 4, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "26-Mar", wk: 4, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "28-Mar", wk: 4, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "31-Mar", wk: 5, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "2-Apr", wk: 5, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "4-Apr", wk: 5, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "7-Apr", wk: 6, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "9-Apr", wk: 6, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "11-Apr", wk: 6, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "14-Apr", wk: 7, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "16-Apr", wk: 7, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "18-Apr", wk: 7, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "21-Apr", wk: 8, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "23-Apr", wk: 8, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "25-Apr", wk: 8, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "28-Apr", wk: 9, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "30-Apr", wk: 9, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "2-May", wk: 9, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "5-May", wk: 10, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "7-May", wk: 10, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "9-May", wk: 10, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "12-May", wk: 11, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "14-May", wk: 11, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "16-May", wk: 11, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "19-May", wk: 12, day: "Mon", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "21-May", wk: 12, day: "Wed", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "23-May", wk: 12, day: "Fri", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "26-May", wk: 13, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "28-May", wk: 13, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "30-May", wk: 13, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "2-Jun", wk: 14, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "4-Jun", wk: 14, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "6-Jun", wk: 14, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "9-Jun", wk: 15, day: "Mon", test: "250mg (1mL)", primo: "0mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "11-Jun", wk: 15, day: "Wed", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>{ date: "13-Jun", wk: 15, day: "Fri", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "-", total: "1mL" }</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>];</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>const App = () =&gt; {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const [completed, setCompleted] = useState(() =&gt; JSON.parse(localStorage.getItem('cy_done') || '{}'));</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const [notes, setNotes] = useState(() =&gt; JSON.parse(localStorage.getItem('cy_notes') || '{}'));</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const [week, setWeek] = useState(1);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const [view, setView] = useState('tracker');</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>useEffect(() =&gt; { localStorage.setItem('cy_done', JSON.stringify(completed)); }, [completed]);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>useEffect(() =&gt; { localStorage.setItem('cy_notes', JSON.stringify(notes)); }, [notes]);</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const currentItems = useMemo(() =&gt; DATA.filter(d =&gt; d.wk === week), [week]);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const totalDoneCount = Object.values(completed).filter(Boolean).length;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const progress = Math.round((totalDoneCount / DATA.length) * 100);</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const journalEntries = useMemo(() =&gt; {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>return DATA.filter(item =&gt; {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>const id = `${item.date}-${item.wk}`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>return notes[id] &amp;&amp; notes[id].trim() !== "";</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>}, [notes]);</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>return (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div className="max-w-md mx-auto min-h-screen flex flex-col pb-24"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;header className="bg-white p-5 border-b sticky top-0 z-50 shadow-sm"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="flex justify-between items-center mb-4"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;h1 className="text-xl font-black text-slate-900"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;span className="text-blue-600"&gt;Cycle&lt;/span&gt; Tracker</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/h1&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="flex gap-2"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;span className="bg-blue-100 text-blue-700 text-[10px] font-black px-3 py-1 rounded-full uppercase"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>{progress}% Total</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/span&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="bg-blue-600 h-full transition-all duration-700 ease-out" style={{width: `${progress}%`}}&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/header&gt;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>{view === 'tracker' ? (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="p-4 flex-grow"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="flex items-center justify-between mb-6 bg-white p-4 rounded-[2rem] border shadow-sm"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;button onClick={() =&gt; setWeek(w =&gt; Math.max(1, w-1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20" disabled={week===1}&gt;←&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="text-center"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest"&gt;Stage&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-xl font-black"&gt;WEEK {week}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;button onClick={() =&gt; setWeek(w =&gt; Math.min(15, w+1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20" disabled={week===15}&gt;→&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="space-y-4"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>{currentItems.map((item) =&gt; {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>const id = `${item.date}-${item.wk}`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>const isDone = completed[id];</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>return (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div key={id} className={`p-6 rounded-[2.5rem] border transition-all ${isDone ? 'bg-green-50/50 border-green-200' : 'bg-white border-gray-100 shadow-sm'}`}&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex justify-between items-start mb-5"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;h2 className="text-xl font-black text-slate-800 tracking-tight"&gt;{item.day}, {item.date}&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1"&gt;Injection Day&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setCompleted(prev =&gt; ({...prev, [id]: !prev[id]}))}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                </span>className={`w-14 h-14 rounded-3xl flex items-center justify-center text-xl transition-all ${isDone ? 'bg-green-500 text-white shadow-lg shadow-green-200' : 'bg-gray-100 text-gray-300'}`}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                </span>{isDone ? '✓' : ''}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="grid grid-cols-2 gap-2 mb-5"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;Badge label="Test" val={item.test} color="blue" /&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;Badge label="Primo" val={item.primo} color="purple" /&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;Badge label="Anavar" val={item.anavar} color="orange" /&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;Badge label="AI" val={item.ai} color="rose" /&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;textarea<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>value={notes[id] || ''}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>onChange={(e) =&gt; setNotes(prev =&gt; ({...prev, [id]: e.target.value}))}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>placeholder="Log notes..."</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 min-h-[100px] resize-none transition-all"</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>/&gt;</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex justify-between items-center px-1"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;span className="text-[10px] font-black text-slate-400 uppercase tracking-widest"&gt;Total Volume&lt;/span&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;span className="text-sm font-black text-slate-800"&gt;{item.total}&lt;/span&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>})}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>) : (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="p-4 flex-grow"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;h2 className="text-2xl font-black mb-6 px-2"&gt;Cycle Summary&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="grid grid-cols-2 gap-4 mb-8"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-blue-600 p-5 rounded-[2rem] text-white shadow-xl"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-1"&gt;Injections&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-3xl font-black"&gt;{totalDoneCount}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-[10px] font-bold opacity-60 mt-1"&gt;of {DATA.length}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1"&gt;Status&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-3xl font-black text-slate-800"&gt;Week {week}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="space-y-6"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2"&gt;Log Timeline&lt;/h3&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>{journalEntries.map(entry =&gt; (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div key={entry.date} className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex justify-between items-center mb-2"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;p className="text-sm font-black text-blue-600"&gt;{entry.day}, {entry.date}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span className="text-[10px] font-bold text-gray-400 uppercase"&gt;Wk {entry.wk}&lt;/span&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-slate-600 text-sm italic"&gt;"{notes[`${entry.date}-${entry.wk}`]}"&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                            </span>))}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>)}</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;nav className="fixed bottom-0 left-0 right-0 p-4 z-50"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="max-w-md mx-auto bg-slate-900 rounded-[2.5rem] p-2 flex gap-2 shadow-2xl"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button onClick={() =&gt; setView('tracker')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest ${view === 'tracker' ? 'bg-white text-slate-900' : 'text-white/60'}`}&gt;Tracker&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button onClick={() =&gt; setView('summary')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest ${view === 'summary' ? 'bg-white text-slate-900' : 'text-white/60'}`}&gt;Summary&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>const Badge = ({ label, val, color }) =&gt; {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>const theme = {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>blue: 'bg-blue-50 text-blue-700 border-blue-100',</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>purple: 'bg-purple-50 text-purple-700 border-purple-100',</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>orange: 'bg-orange-50 text-orange-700 border-orange-100',</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>rose: 'bg-rose-50 text-rose-700 border-rose-100',</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>}[color];</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>return (</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div className={`p-2.5 rounded-2xl border ${theme}`}&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p className="text-[8px] font-black uppercase opacity-50 mb-1"&gt;{label}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p className="text-xs font-black"&gt;{val}&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>ReactDOM.createRoot(document.getElementById('root')).render(&lt;App /&gt;);</span></p>
+<p class="p2"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt; &lt;/html&gt;</span></p>
+</body>
+</html>

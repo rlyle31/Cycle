@@ -5,13 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cycle Protocol Tracker</title>
-<!-- Corrected CDN Links -->
-<script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/react%4018/umd/react.production.min.js"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/react-dom%4018/umd/react-dom.production.min.js"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/%40babel/standalone/babel.min.js"></script>
+<!-- Fixed CDN Links -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-@import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40400%3B600%3B700%3B800%26display%3Dswap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 </style>
@@ -111,12 +111,12 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                 {view === 'tracker' ? (
                     <div className="p-4 flex-grow">
                         <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-[2rem] border shadow-sm">
-                            <button onClick={() => setWeek(w => Math.max(1, w-1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20" disabled={week===1}>←</button>
+                            <button onClick={() => setWeek(w => Math.max(1, w-1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===1}>←</button>
                             <div className="text-center">
                                 <p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Stage</p>
                                 <p className="text-xl font-black">WEEK {week}</p>
                             </div>
-                            <button onClick={() => setWeek(w => Math.min(15, w+1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20" disabled={week===15}>→</button>
+                            <button onClick={() => setWeek(w => Math.min(15, w+1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===15}>→</button>
                         </div>
 
                         <div className="space-y-4">
@@ -124,7 +124,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                 const id = `${item.date}-${item.wk}`;
                                 const isDone = completed[id];
                                 return (
-                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all ${isDone ? 'bg-green-50/50 border-green-200' : 'bg-white border-gray-100 shadow-sm'}`}>
+                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all duration-300 ${isDone ? 'bg-green-50/50 border-green-200' : 'bg-white border-gray-100 shadow-sm'}`}>
                                         <div className="flex justify-between items-start mb-5">
                                             <div>
                                                 <h2 className="text-xl font-black text-slate-800 tracking-tight">{item.day}, {item.date}</h2>
@@ -132,7 +132,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                             </div>
                                             <button 
                                                 onClick={() => setCompleted(prev => ({...prev, [id]: !prev[id]}))}
-                                                className={`w-14 h-14 rounded-3xl flex items-center justify-center text-xl transition-all ${isDone ? 'bg-green-500 text-white shadow-lg shadow-green-200' : 'bg-gray-100 text-gray-300'}`}
+                                                className={`w-14 h-14 rounded-3xl flex items-center justify-center text-xl transition-all active:scale-75 ${isDone ? 'bg-green-500 text-white shadow-lg shadow-green-200' : 'bg-gray-100 text-gray-300'}`}
                                             >
                                                 {isDone ? '✓' : ''}
                                             </button>
@@ -148,8 +148,8 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                         <textarea 
                                             value={notes[id] || ''}
                                             onChange={(e) => setNotes(prev => ({...prev, [id]: e.target.value}))}
-                                            placeholder="Log notes..."
-                                            className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 min-h-[100px] resize-none transition-all"
+                                            placeholder="Log weight, mood..."
+                                            className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all min-h-[100px] resize-none"
                                         />
 
                                         <div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex justify-between items-center px-1">
@@ -186,14 +186,15 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                     <p className="text-slate-600 text-sm italic">"{notes[`${entry.date}-${entry.wk}`]}"</p>
                                 </div>
                             ))}
+                            {journalEntries.length === 0 && <p className="text-center text-gray-400 py-10">No notes recorded yet.</p>}
                         </div>
                     </div>
                 )}
 
                 <nav className="fixed bottom-0 left-0 right-0 p-4 z-50">
                     <div className="max-w-md mx-auto bg-slate-900 rounded-[2.5rem] p-2 flex gap-2 shadow-2xl">
-                        <button onClick={() => setView('tracker')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest ${view === 'tracker' ? 'bg-white text-slate-900' : 'text-white/60'}`}>Tracker</button>
-                        <button onClick={() => setView('summary')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest ${view === 'summary' ? 'bg-white text-slate-900' : 'text-white/60'}`}>Summary</button>
+                        <button onClick={() => setView('tracker')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest transition-all ${view === 'tracker' ? 'bg-white text-slate-900 shadow-lg' : 'text-white/60 hover:text-white'}`}>Tracker</button>
+                        <button onClick={() => setView('summary')} className={`flex-1 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest transition-all ${view === 'summary' ? 'bg-white text-slate-900 shadow-lg' : 'text-white/60 hover:text-white'}`}>Summary</button>
                     </div>
                 </nav>
             </div>
@@ -210,12 +211,13 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
         return (
             <div className={`p-2.5 rounded-2xl border ${theme}`}>
                 <p className="text-[8px] font-black uppercase opacity-50 mb-1">{label}</p>
-                <p className="text-xs font-black">{val}</p>
+                <p className="text-xs font-black truncate">{val}</p>
             </div>
         );
     };
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
 </script>
 
 

@@ -4,14 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Cycle Protocol Tracker</title>
-<!-- Fixed CDN Links -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<title>Cycle Protocol Tracker (Sun/Tue/Thu)</title>
+<!-- Direct CDN Links (Fixed) -->
+<script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"></script>
+<script src="https://www.google.com/search?q=https://unpkg.com/react%4018/umd/react.production.min.js"></script>
+<script src="https://www.google.com/search?q=https://unpkg.com/react-dom%4018/umd/react-dom.production.min.js"></script>
+<script src="https://www.google.com/search?q=https://unpkg.com/%40babel/standalone/babel.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+@import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40400%3B600%3B700%3B800%26display%3Dswap');
 body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 </style>
@@ -22,64 +22,63 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
 <script type="text/babel">
     const { useState, useEffect, useMemo } = React;
 
+    // DATA: Sunday, Tuesday, Thursday Schedule starting March 1st
     const DATA = [
-        { date: "3-Mar", wk: 1, day: "Mon", test: "250mg (1mL)", primo: "100mg (0mL)", anavar: "0mg", ai: "-", total: "2mL" },
-        { date: "5-Mar", wk: 1, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "7-Mar", wk: 1, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "10-Mar", wk: 2, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "12-Mar", wk: 2, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "14-Mar", wk: 2, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "17-Mar", wk: 3, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "19-Mar", wk: 3, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "21-Mar", wk: 3, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
-        { date: "24-Mar", wk: 4, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "26-Mar", wk: 4, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "28-Mar", wk: 4, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "31-Mar", wk: 5, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "2-Apr", wk: 5, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "4-Apr", wk: 5, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "7-Apr", wk: 6, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "9-Apr", wk: 6, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "11-Apr", wk: 6, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "14-Apr", wk: 7, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "16-Apr", wk: 7, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "18-Apr", wk: 7, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
-        { date: "21-Apr", wk: 8, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "23-Apr", wk: 8, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "25-Apr", wk: 8, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "28-Apr", wk: 9, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "30-Apr", wk: 9, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "2-May", wk: 9, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "5-May", wk: 10, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "7-May", wk: 10, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "9-May", wk: 10, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "12-May", wk: 11, day: "Mon", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "14-May", wk: 11, day: "Wed", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "16-May", wk: 11, day: "Fri", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "19-May", wk: 12, day: "Mon", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "21-May", wk: 12, day: "Wed", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "23-May", wk: 12, day: "Fri", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
-        { date: "26-May", wk: 13, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "28-May", wk: 13, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "30-May", wk: 13, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "2-Jun", wk: 14, day: "Mon", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "4-Jun", wk: 14, day: "Wed", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "6-Jun", wk: 14, day: "Fri", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "9-Jun", wk: 15, day: "Mon", test: "250mg (1mL)", primo: "0mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
-        { date: "11-Jun", wk: 15, day: "Wed", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
-        { date: "13-Jun", wk: 15, day: "Fri", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "-", total: "1mL" }
+        { date: "1-Mar", wk: 1, day: "Sun", test: "250mg (1mL)", primo: "100mg (0mL)", anavar: "0mg", ai: "-", total: "2mL" },
+        { date: "3-Mar", wk: 1, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "5-Mar", wk: 1, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "8-Mar", wk: 2, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "10-Mar", wk: 2, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "12-Mar", wk: 2, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "15-Mar", wk: 3, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "17-Mar", wk: 3, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "19-Mar", wk: 3, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
+        { date: "22-Mar", wk: 4, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "24-Mar", wk: 4, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "26-Mar", wk: 4, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "29-Mar", wk: 5, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "31-Mar", wk: 5, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "2-Apr", wk: 5, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "5-Apr", wk: 6, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "7-Apr", wk: 6, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "9-Apr", wk: 6, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "12-Apr", wk: 7, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "14-Apr", wk: 7, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "16-Apr", wk: 7, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "3mL" },
+        { date: "19-Apr", wk: 8, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "21-Apr", wk: 8, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "23-Apr", wk: 8, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "26-Apr", wk: 9, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "28-Apr", wk: 9, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "30-Apr", wk: 9, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "3-May", wk: 10, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "5-May", wk: 10, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "7-May", wk: 10, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "10-May", wk: 11, day: "Sun", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "12-May", wk: 11, day: "Tue", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "14-May", wk: 11, day: "Thu", test: "500mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "17-May", wk: 12, day: "Sun", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "19-May", wk: 12, day: "Tue", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "21-May", wk: 12, day: "Thu", test: "333mg (2mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "3mL" },
+        { date: "24-May", wk: 13, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "26-May", wk: 13, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "28-May", wk: 13, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "31-May", wk: 14, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "2-Jun", wk: 14, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "4-Jun", wk: 14, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
+        { date: "7-Jun", wk: 15, day: "Sun", test: "250mg (1mL)", primo: "0mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
+        { date: "9-Jun", wk: 15, day: "Tue", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
+        { date: "11-Jun", wk: 15, day: "Thu", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "-", total: "1mL" }
     ];
 
     const App = () => {
         const [completed, setCompleted] = useState(() => JSON.parse(localStorage.getItem('cy_done') || '{}'));
         const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('cy_notes') || '{}'));
-        const [weights, setWeights] = useState(() => JSON.parse(localStorage.getItem('cy_weights') || '{}'));
         const [week, setWeek] = useState(1);
         const [view, setView] = useState('tracker');
 
         useEffect(() => { localStorage.setItem('cy_done', JSON.stringify(completed)); }, [completed]);
         useEffect(() => { localStorage.setItem('cy_notes', JSON.stringify(notes)); }, [notes]);
-        useEffect(() => { localStorage.setItem('cy_weights', JSON.stringify(weights)); }, [weights]);
 
         const currentItems = useMemo(() => DATA.filter(d => d.wk === week), [week]);
         const totalDoneCount = Object.values(completed).filter(Boolean).length;
@@ -91,28 +90,6 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                 return notes[id] && notes[id].trim() !== "";
             });
         }, [notes]);
-
-        const weightData = useMemo(() => {
-            const entries = DATA.map(item => {
-                const id = `${item.date}-${item.wk}`;
-                const weight = weights[id];
-                return {
-                    date: item.date,
-                    day: item.day,
-                    wk: item.wk,
-                    weight: weight ? parseFloat(weight) : null
-                };
-            }).filter(entry => entry.weight !== null);
-
-            if (entries.length === 0) return { entries: [], change: 0, percentChange: 0, startWeight: 0, endWeight: 0 };
-
-            const startWeight = entries[0].weight;
-            const endWeight = entries[entries.length - 1].weight;
-            const change = endWeight - startWeight;
-            const percentChange = ((change / startWeight) * 100).toFixed(1);
-
-            return { entries, change, percentChange, startWeight, endWeight };
-        }, [weights]);
 
         return (
             <div className="max-w-md mx-auto min-h-screen flex flex-col pb-24">
@@ -133,11 +110,11 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                 </header>
 
                 {view === 'tracker' ? (
-                    <div className="p-4 flex-grow">
+                    <div className="p-4 flex-grow animate-in fade-in duration-300">
                         <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-[2rem] border shadow-sm">
                             <button onClick={() => setWeek(w => Math.max(1, w-1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===1}>←</button>
                             <div className="text-center">
-                                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Stage</p>
+                                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Protocol Stage</p>
                                 <p className="text-xl font-black">WEEK {week}</p>
                             </div>
                             <button onClick={() => setWeek(w => Math.min(15, w+1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===15}>→</button>
@@ -148,11 +125,11 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                 const id = `${item.date}-${item.wk}`;
                                 const isDone = completed[id];
                                 return (
-                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all duration-300 ${isDone ? 'bg-green-50/50 border-green-200' : 'bg-white border-gray-100 shadow-sm'}`}>
+                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all duration-300 ${isDone ? 'bg-green-50/50 border-green-200 shadow-inner' : 'bg-white border-gray-100 shadow-sm'}`}>
                                         <div className="flex justify-between items-start mb-5">
                                             <div>
                                                 <h2 className="text-xl font-black text-slate-800 tracking-tight">{item.day}, {item.date}</h2>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Injection Day</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Injection Scheduled</p>
                                             </div>
                                             <button 
                                                 onClick={() => setCompleted(prev => ({...prev, [id]: !prev[id]}))}
@@ -169,27 +146,15 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                             <Badge label="AI" val={item.ai} color="rose" />
                                         </div>
 
-                                        <div className="mb-5">
-                                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Body Weight (lbs)</label>
-                                            <input 
-                                                type="number"
-                                                step="0.1"
-                                                value={weights[id] || ''}
-                                                onChange={(e) => setWeights(prev => ({...prev, [id]: e.target.value}))}
-                                                placeholder="Enter weight..."
-                                                className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all"
-                                            />
-                                        </div>
-
                                         <textarea 
                                             value={notes[id] || ''}
                                             onChange={(e) => setNotes(prev => ({...prev, [id]: e.target.value}))}
-                                            placeholder="Log weight, mood..."
+                                            placeholder="Log weight, mood, or symptoms..."
                                             className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all min-h-[100px] resize-none"
                                         />
 
                                         <div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex justify-between items-center px-1">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Volume</span>
+                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Volume Info</span>
                                             <span className="text-sm font-black text-slate-800">{item.total}</span>
                                         </div>
                                     </div>
@@ -198,7 +163,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                         </div>
                     </div>
                 ) : (
-                    <div className="p-4 flex-grow">
+                    <div className="p-4 flex-grow animate-in slide-in-from-bottom-4 duration-300">
                         <h2 className="text-2xl font-black mb-6 px-2">Cycle Summary</h2>
                         <div className="grid grid-cols-2 gap-4 mb-8">
                             <div className="bg-blue-600 p-5 rounded-[2rem] text-white shadow-xl">
@@ -207,141 +172,22 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                 <p className="text-[10px] font-bold opacity-60 mt-1">of {DATA.length}</p>
                             </div>
                             <div className="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Current</p>
                                 <p className="text-3xl font-black text-slate-800">Week {week}</p>
                             </div>
                         </div>
-
-                        {weightData.entries.length > 0 && (
-                            <div className="mb-8">
-                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2 mb-4">Weight Progress</h3>
-                                
-                                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm mb-4">
-                                    <div className="grid grid-cols-3 gap-4 mb-6">
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Start</p>
-                                            <p className="text-xl font-black text-slate-800">{weightData.startWeight} lbs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Current</p>
-                                            <p className="text-xl font-black text-slate-800">{weightData.endWeight} lbs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Change</p>
-                                            <p className={`text-xl font-black ${weightData.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                                {weightData.change >= 0 ? '+' : ''}{weightData.change.toFixed(1)} lbs
-                                            </p>
-                                            <p className={`text-[10px] font-bold ${weightData.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                                {weightData.change >= 0 ? '+' : ''}{weightData.percentChange}%
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="relative h-48">
-                                        <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
-                                            <defs>
-                                                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                    <stop offset="0%" style={{stopColor: '#3b82f6', stopOpacity: 1}} />
-                                                    <stop offset="100%" style={{stopColor: '#8b5cf6', stopOpacity: 1}} />
-                                                </linearGradient>
-                                            </defs>
-                                            {(() => {
-                                                const weights = weightData.entries.map(e => e.weight);
-                                                const minWeight = Math.min(...weights);
-                                                const maxWeight = Math.max(...weights);
-                                                const range = maxWeight - minWeight || 1;
-                                                const padding = range * 0.1;
-                                                
-                                                const points = weightData.entries.map((entry, i) => {
-                                                    const x = (i / (weightData.entries.length - 1)) * 400;
-                                                    const y = 200 - (((entry.weight - minWeight + padding) / (range + padding * 2)) * 180 + 10);
-                                                    return `${x},${y}`;
-                                                }).join(' ');
-
-                                                return (
-                                                    <>
-                                                        <polyline
-                                                            points={points}
-                                                            fill="none"
-                                                            stroke="url(#lineGradient)"
-                                                            strokeWidth="3"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        {weightData.entries.map((entry, i) => {
-                                                            const x = (i / (weightData.entries.length - 1)) * 400;
-                                                            const y = 200 - (((entry.weight - minWeight + padding) / (range + padding * 2)) * 180 + 10);
-                                                            return (
-                                                                <circle
-                                                                    key={i}
-                                                                    cx={x}
-                                                                    cy={y}
-                                                                    r="4"
-                                                                    fill="#3b82f6"
-                                                                    stroke="white"
-                                                                    strokeWidth="2"
-                                                                />
-                                                            );
-                                                        })}
-                                                    </>
-                                                );
-                                            })()}
-                                        </svg>
-                                    </div>
-                                    <div className="flex justify-between items-center mt-4 pt-4 border-t border-dashed border-gray-200">
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                            Week 1
-                                        </span>
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                            Week {weightData.entries[weightData.entries.length - 1].wk}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3">
-                                    {weightData.entries.map((entry, index) => {
-                                        const prevWeight = index > 0 ? weightData.entries[index - 1].weight : entry.weight;
-                                        const change = entry.weight - prevWeight;
-                                        return (
-                                            <div key={entry.date} className="bg-white p-4 rounded-2xl border border-gray-100 flex justify-between items-center">
-                                                <div>
-                                                    <p className="text-sm font-black text-slate-800">{entry.day}, {entry.date}</p>
-                                                    <p className="text-[10px] font-bold text-slate-400">Week {entry.wk}</p>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-lg font-black text-slate-800">{entry.weight} lbs</p>
-                                                    {index > 0 && (
-                                                        <p className={`text-[10px] font-bold ${change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                                            {change >= 0 ? '+' : ''}{change.toFixed(1)} lbs
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-
-                        {weightData.entries.length === 0 && (
-                            <div className="bg-gray-50 p-8 rounded-3xl border border-dashed border-gray-200 text-center mb-8">
-                                <p className="text-gray-400 font-bold">No weight data recorded yet.</p>
-                                <p className="text-sm text-gray-400 mt-2">Start logging your weight on injection days to see progress.</p>
-                            </div>
-                        )}
-
                         <div className="space-y-6">
-                            <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Log Timeline</h3>
+                            <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Timeline of Notes</h3>
                             {journalEntries.map(entry => (
                                 <div key={entry.date} className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm">
                                     <div className="flex justify-between items-center mb-2">
                                         <p className="text-sm font-black text-blue-600">{entry.day}, {entry.date}</p>
-                                        <span className="text-[10px] font-bold text-gray-400 uppercase">Wk {entry.wk}</span>
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase bg-gray-50 px-2 py-0.5 rounded-lg">Wk {entry.wk}</span>
                                     </div>
                                     <p className="text-slate-600 text-sm italic">"{notes[`${entry.date}-${entry.wk}`]}"</p>
                                 </div>
                             ))}
-                            {journalEntries.length === 0 && <p className="text-center text-gray-400 py-10">No notes recorded yet.</p>}
+                            {journalEntries.length === 0 && <p className="text-center text-gray-400 py-10 italic">No notes recorded yet.</p>}
                         </div>
                     </div>
                 )}

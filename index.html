@@ -5,13 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cycle Protocol Tracker (Sun/Tue/Thu)</title>
-<!-- Direct CDN Links (Fixed) -->
-<script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/react%4018/umd/react.production.min.js"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/react-dom%4018/umd/react-dom.production.min.js"></script>
-<script src="https://www.google.com/search?q=https://unpkg.com/%40babel/standalone/babel.min.js"></script>
+<!-- Direct CDN Links -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-@import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40400%3B600%3B700%3B800%26display%3Dswap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 </style>
@@ -24,7 +24,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
 
     // DATA: Sunday, Tuesday, Thursday Schedule starting March 1st
     const DATA = [
-        { date: "1-Mar", wk: 1, day: "Sun", test: "250mg (1mL)", primo: "100mg (0mL)", anavar: "0mg", ai: "-", total: "2mL" },
+        { date: "1-Mar", wk: 1, day: "Sun", test: "250mg (1mL)", primo: "100mg (0mL)", anavar: "0mg", ai: "-", total: "1mL" },
         { date: "3-Mar", wk: 1, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
         { date: "5-Mar", wk: 1, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
         { date: "8-Mar", wk: 2, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "0mg", ai: "0.25mg", total: "2mL" },
@@ -66,7 +66,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
         { date: "31-May", wk: 14, day: "Sun", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
         { date: "2-Jun", wk: 14, day: "Tue", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
         { date: "4-Jun", wk: 14, day: "Thu", test: "250mg (1mL)", primo: "100mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
-        { date: "7-Jun", wk: 15, day: "Sun", test: "250mg (1mL)", primo: "0mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
+        { date: "7-Jun", wk: 15, day: "Sun", test: "250mg (1mL)", primo: "0mg (1mL)", anavar: "25mg", ai: "0.25mg", total: "2mL" },
         { date: "9-Jun", wk: 15, day: "Tue", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "0.25mg", total: "1mL" },
         { date: "11-Jun", wk: 15, day: "Thu", test: "250mg (1mL)", primo: "0mg (0mL)", anavar: "25mg", ai: "-", total: "1mL" }
     ];
@@ -74,11 +74,13 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
     const App = () => {
         const [completed, setCompleted] = useState(() => JSON.parse(localStorage.getItem('cy_done') || '{}'));
         const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('cy_notes') || '{}'));
+        const [weights, setWeights] = useState(() => JSON.parse(localStorage.getItem('cy_weights') || '{}'));
         const [week, setWeek] = useState(1);
         const [view, setView] = useState('tracker');
 
         useEffect(() => { localStorage.setItem('cy_done', JSON.stringify(completed)); }, [completed]);
         useEffect(() => { localStorage.setItem('cy_notes', JSON.stringify(notes)); }, [notes]);
+        useEffect(() => { localStorage.setItem('cy_weights', JSON.stringify(weights)); }, [weights]);
 
         const currentItems = useMemo(() => DATA.filter(d => d.wk === week), [week]);
         const totalDoneCount = Object.values(completed).filter(Boolean).length;
@@ -87,16 +89,16 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
         const journalEntries = useMemo(() => {
             return DATA.filter(item => {
                 const id = `${item.date}-${item.wk}`;
-                return notes[id] && notes[id].trim() !== "";
+                return (notes[id] && notes[id].trim() !== "") || (weights[id] && weights[id].trim() !== "");
             });
-        }, [notes]);
+        }, [notes, weights]);
 
         return (
             <div className="max-w-md mx-auto min-h-screen flex flex-col pb-24">
                 <header className="bg-white p-5 border-b sticky top-0 z-50 shadow-sm">
                     <div className="flex justify-between items-center mb-4">
                         <h1 className="text-xl font-black text-slate-900">
-                            <span className="text-blue-600">Cycle</span> Tracker
+                            <span className="text-blue-600">Protocol</span> Tracker
                         </h1>
                         <div className="flex gap-2">
                             <span className="bg-blue-100 text-blue-700 text-[10px] font-black px-3 py-1 rounded-full uppercase">
@@ -115,7 +117,7 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                             <button onClick={() => setWeek(w => Math.max(1, w-1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===1}>←</button>
                             <div className="text-center">
                                 <p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Protocol Stage</p>
-                                <p className="text-xl font-black">WEEK {week}</p>
+                                <p className="text-xl font-black uppercase tracking-tight">Week {week}</p>
                             </div>
                             <button onClick={() => setWeek(w => Math.min(15, w+1))} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl font-bold disabled:opacity-20 active:scale-90" disabled={week===15}>→</button>
                         </div>
@@ -125,11 +127,11 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                 const id = `${item.date}-${item.wk}`;
                                 const isDone = completed[id];
                                 return (
-                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all duration-300 ${isDone ? 'bg-green-50/50 border-green-200 shadow-inner' : 'bg-white border-gray-100 shadow-sm'}`}>
+                                    <div key={id} className={`p-6 rounded-[2.5rem] border transition-all duration-300 ${isDone ? 'bg-green-50/50 border-green-200' : 'bg-white border-gray-100 shadow-sm'}`}>
                                         <div className="flex justify-between items-start mb-5">
                                             <div>
                                                 <h2 className="text-xl font-black text-slate-800 tracking-tight">{item.day}, {item.date}</h2>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Injection Scheduled</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Injection Day</p>
                                             </div>
                                             <button 
                                                 onClick={() => setCompleted(prev => ({...prev, [id]: !prev[id]}))}
@@ -146,15 +148,30 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                                             <Badge label="AI" val={item.ai} color="rose" />
                                         </div>
 
-                                        <textarea 
-                                            value={notes[id] || ''}
-                                            onChange={(e) => setNotes(prev => ({...prev, [id]: e.target.value}))}
-                                            placeholder="Log weight, mood, or symptoms..."
-                                            className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all min-h-[100px] resize-none"
-                                        />
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="text-[10px] font-black text-slate-400 uppercase px-1">Body Weight (lbs)</label>
+                                                <input 
+                                                    type="number"
+                                                    value={weights[id] || ''}
+                                                    onChange={(e) => setWeights(prev => ({...prev, [id]: e.target.value}))}
+                                                    placeholder="Enter weight..."
+                                                    className="w-full mt-1 p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 transition-all"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-[10px] font-black text-slate-400 uppercase px-1">Daily Log</label>
+                                                <textarea 
+                                                    value={notes[id] || ''}
+                                                    onChange={(e) => setNotes(prev => ({...prev, [id]: e.target.value}))}
+                                                    placeholder="Mood, site, or side effects..."
+                                                    className="w-full mt-1 p-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm outline-none focus:ring-4 focus:ring-blue-500/5 min-h-[100px] resize-none transition-all"
+                                                />
+                                            </div>
+                                        </div>
 
                                         <div className="mt-4 pt-4 border-t border-dashed border-gray-200 flex justify-between items-center px-1">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Volume Info</span>
+                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Volume</span>
                                             <span className="text-sm font-black text-slate-800">{item.total}</span>
                                         </div>
                                     </div>
@@ -164,7 +181,8 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                     </div>
                 ) : (
                     <div className="p-4 flex-grow animate-in slide-in-from-bottom-4 duration-300">
-                        <h2 className="text-2xl font-black mb-6 px-2">Cycle Summary</h2>
+                        <h2 className="text-2xl font-black mb-6 px-2 text-slate-800">Cycle Summary</h2>
+                        
                         <div className="grid grid-cols-2 gap-4 mb-8">
                             <div className="bg-blue-600 p-5 rounded-[2rem] text-white shadow-xl">
                                 <p className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-1">Injections</p>
@@ -173,21 +191,38 @@ body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparen
                             </div>
                             <div className="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm">
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Current</p>
-                                <p className="text-3xl font-black text-slate-800">Week {week}</p>
+                                <p className="text-3xl font-black text-slate-800">Wk {week}</p>
                             </div>
                         </div>
+
                         <div className="space-y-6">
-                            <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Timeline of Notes</h3>
-                            {journalEntries.map(entry => (
-                                <div key={entry.date} className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <p className="text-sm font-black text-blue-600">{entry.day}, {entry.date}</p>
-                                        <span className="text-[10px] font-bold text-gray-400 uppercase bg-gray-50 px-2 py-0.5 rounded-lg">Wk {entry.wk}</span>
+                            <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Cycle Log</h3>
+                            {journalEntries.map(entry => {
+                                const id = `${entry.date}-${entry.wk}`;
+                                return (
+                                    <div key={id} className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm">
+                                        <div className="flex justify-between items-center mb-3">
+                                            <div>
+                                                <p className="text-sm font-black text-blue-600 leading-none">{entry.day}, {entry.date}</p>
+                                                <p className="text-[10px] font-bold text-gray-400 uppercase mt-1">Week {entry.wk}</p>
+                                            </div>
+                                            {weights[id] && (
+                                                <span className="bg-gray-100 text-slate-700 text-xs font-black px-2 py-1 rounded-lg">
+                                                    {weights[id]} lbs
+                                                </span>
+                                            )}
+                                        </div>
+                                        {notes[id] && (
+                                            <p className="text-slate-600 text-sm italic leading-relaxed">
+                                                "{notes[id]}"
+                                            </p>
+                                        )}
                                     </div>
-                                    <p className="text-slate-600 text-sm italic">"{notes[`${entry.date}-${entry.wk}`]}"</p>
-                                </div>
-                            ))}
-                            {journalEntries.length === 0 && <p className="text-center text-gray-400 py-10 italic">No notes recorded yet.</p>}
+                                )
+                            })}
+                            {journalEntries.length === 0 && (
+                                <p className="text-center text-gray-400 py-10 italic">No notes or weight recorded yet.</p>
+                            )}
                         </div>
                     </div>
                 )}
